@@ -11,12 +11,17 @@ app.get("/stream", (req, res) => {
   if (!url) return res.status(400).send("Missing url");
 
   res.setHeader("Content-Type", "video/mp4");
-
+  
   const ffmpeg = spawn("ffmpeg", [
     "-i", url,
+  
     "-c:v", "copy",
+  
     "-c:a", "aac",
     "-b:a", "192k",
+  
+    "-movflags", "frag_keyframe+empty_moov",
+  
     "-f", "mp4",
     "pipe:1"
   ]);
