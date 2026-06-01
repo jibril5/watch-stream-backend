@@ -5,7 +5,9 @@ import { spawn } from "child_process";
 const app = express();
 
 app.use(cors());
-
+app.get("/", (req, res) => {
+  res.send("Backend OK");
+});
 app.get("/stream", (req, res) => {
 
   const url = req.query.url;
